@@ -11,7 +11,9 @@ def register(request):
 
 @api_view(['GET'])
 def get_user(request):
-    return Response(UserSerializer({'name': "pedro", "age": 23}).data) # Return a user with name pedro and age 23
+    users = Users.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def create_user(request):
