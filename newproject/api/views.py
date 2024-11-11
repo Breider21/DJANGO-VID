@@ -9,6 +9,9 @@ from django.shortcuts import render
 def register(request):
     return render(request, 'register.html')
 
+def login(request):
+    return render(request, 'login.html')
+
 @api_view(['GET'])
 def get_user(request):
     users = Users.objects.all()

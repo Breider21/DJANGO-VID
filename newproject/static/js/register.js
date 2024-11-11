@@ -1,27 +1,40 @@
-document.getElementById('registration-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const age = document.getElementById('age').value;
-
-    fetch('/api/users/create/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name: name, age: age }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.id) {
-            alert('Usuario registrado exitosamente!');
-        } else if (data.error) {
-            alert('Error: ' + data.error);
-        } else {
-            alert('Error al registrar usuario: ' + JSON.stringify(data));
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const termsAccepted = document.getElementById('termsCheckbox').checked;
+    
+    // Basic validation
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+        alert('Please fill in all fields');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+    }
+    
+    if (!termsAccepted) {
+        alert('Please accept the Terms of Use & Privacy Policy');
+        return;
+    }
+    
+    // If validation passes, you can handle the form submission here
+    console.log('Form submitted successfully');
+    console.log({
+        firstName,
+        lastName,
+        email,
+        password,
+        termsAccepted
     });
+    
+    // Optional: Reset form after successful submission
+    this.reset();
 });
